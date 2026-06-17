@@ -46,3 +46,13 @@ Dependency Injection is a design pattern where an object receives its dependenci
 ## Screenshots
 
 Screenshots of the development environment setup are available in the `screenshots` folder.
+
+## Endpoints
+
+| Method | URL                       | Body         |
+|--------|---------------------------|--------------|
+| POST   | /api/categories           | { "name" }   |
+| GET    | /api/categories           | -            |
+| GET    | /api/categories/{id}      | -            |
+| PUT    | /api/categories/{id}      | { "name" }   |
+| DELETE | /api/categories/{id}      | -            |

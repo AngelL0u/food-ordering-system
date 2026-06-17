@@ -71,4 +71,25 @@ public class CategoryServiceImpl implements CategoryService {
 
         return responseDto;
     }
+
+    @Override
+    public CategoryDto updateCategory(Long id, CategoryDto dto) {
+
+        // Find the existing category or throw exception if not found
+        Category category = categoryRepository.findById(id)
+                .orElseThrow(() -> new CategoryNotFoundException("Category not found with id: " + id));
+
+        // Update the name
+        category.setName(dto.getName());
+
+        // Save updated category
+        Category updatedCategory = categoryRepository.save(category);
+
+        // Map to DTO and return
+        CategoryDto responseDto = new CategoryDto();
+        responseDto.setId(updatedCategory.getId());
+        responseDto.setName(updatedCategory.getName());
+
+        return responseDto;
+    }
 }

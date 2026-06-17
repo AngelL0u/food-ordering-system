@@ -33,10 +33,16 @@ public class CategoryController {
     }
 
     // POST /api/categories - creates a new category
-    // @Valid triggers validation on the CategoryDto fields
     @PostMapping
     public ResponseEntity<CategoryDto> addCategory(@RequestBody @Valid CategoryDto dto) {
         CategoryDto created = categoryService.addCategory(dto);
         return ResponseEntity.status(HttpStatus.CREATED).body(created);
+    }
+
+    // PUT /api/categories/{id} - updates an existing category
+    @PutMapping("/{id}")
+    public ResponseEntity<CategoryDto> updateCategory(@PathVariable Long id, @RequestBody @Valid CategoryDto dto) {
+        CategoryDto updated = categoryService.updateCategory(id, dto);
+        return ResponseEntity.ok(updated);
     }
 }

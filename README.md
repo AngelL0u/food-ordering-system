@@ -56,3 +56,21 @@ Screenshots of the development environment setup are available in the `screensho
 | GET    | /api/categories/{id}      | -            |
 | PUT    | /api/categories/{id}      | { "name" }   |
 | DELETE | /api/categories/{id}      | -            |
+
+## API Response Format
+
+Every endpoint returns a consistent JSON structure:
+
+```json
+{
+    "statusCode": 200,
+    "message": "Category retrieved",
+    "data": {
+        "id": 1,
+        "name": "Fast Food"
+    },
+    "timestamp": "2026-06-18T08:42:11"
+}
+```
+
+On error, the `data` field is omitted.

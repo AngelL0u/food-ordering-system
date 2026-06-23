@@ -1,61 +1,35 @@
 # Food Ordering System
 
-A Spring Boot project for a food ordering system built as part of the JumpStart training programme.
+A Spring Boot REST API for a food ordering system built as part of the JumpStart training programme.
 
 ## Part 4: Research Questions
 
 ### 1. What is Spring Boot?
-Spring Boot is a framework built on top of Spring that makes it easy to create standalone, production-ready Java applications. It removes the need for complex configuration by providing sensible defaults and auto-configuration, allowing developers to focus on writing business logic rather than setup.
+Spring Boot is a framework built on top of Spring that makes it easy to create standalone, production-ready Java applications with minimal configuration.
 
 ### 2. What is Maven?
-Maven is a build automation and project management tool used in Java projects. It handles downloading dependencies, compiling code, running tests, and packaging the application into a deployable format.
+Maven is a build automation tool used in Java projects. It handles downloading dependencies, compiling code, and packaging the application.
 
 ### 3. What is the purpose of pom.xml?
-The pom.xml (Project Object Model) is the configuration file for Maven. It defines the project's dependencies, plugins, build settings, and metadata such as the group ID, artifact ID, and version.
+The pom.xml defines the project's dependencies, plugins, build settings, and metadata.
 
 ### 4. What is the purpose of application.properties?
-application.properties is the configuration file for a Spring Boot application. It is used to set properties such as the database connection URL, username, password, server port, and other application settings.
+application.properties configures the Spring Boot application including database connection, server port, and JPA settings.
 
 ### 5. What does @SpringBootApplication do?
-@SpringBootApplication is an annotation that combines three annotations: @Configuration, @EnableAutoConfiguration, and @ComponentScan. It marks the main class of a Spring Boot application and enables auto-configuration and component scanning.
+It combines @Configuration, @EnableAutoConfiguration, and @ComponentScan to bootstrap the application.
 
 ### 6. Why do developers use dependency management tools such as Maven?
-Dependency management tools like Maven save developers from manually downloading and managing JAR files. They automatically resolve dependencies, handle version conflicts, and ensure that all team members use the same library versions.
+They automatically resolve dependencies, handle version conflicts, and ensure consistency across team members.
 
 ### 7. What is a REST API?
-A REST API (Representational State Transfer Application Programming Interface) is a way for applications to communicate over HTTP using standard methods such as GET, POST, PUT, and DELETE. It allows different systems to exchange data in a structured format, typically JSON.
+A REST API allows applications to communicate over HTTP using standard methods like GET, POST, PUT, and DELETE.
 
 ### 8. What is JSON?
-JSON (JavaScript Object Notation) is a lightweight data format used to store and exchange data. It is easy for humans to read and write, and easy for machines to parse. It uses key-value pairs and is commonly used in REST APIs.
+JSON is a lightweight data format using key-value pairs, commonly used in REST APIs.
 
 ### 9. What is Dependency Injection?
-Dependency Injection is a design pattern where an object receives its dependencies from an external source rather than creating them itself. In Spring Boot, the framework manages and injects dependencies automatically, making code more modular and easier to test.
-
-## Part 5: Package Structure
-
-| Package | Purpose |
-|---------|---------|
-| controller | Handles incoming HTTP requests and returns responses |
-| service | Contains business logic and processes data |
-| repository | Manages database operations using Spring Data JPA |
-| entity | Defines database table structures as Java classes |
-| dto | Data Transfer Objects used to pass data between layers |
-| config | Holds application configuration classes |
-| exception | Contains custom exception classes and error handling |
-
-## Screenshots
-
-Screenshots of the development environment setup are available in the `screenshots` folder.
-
-## Endpoints
-
-| Method | URL                       | Body         |
-|--------|---------------------------|--------------|
-| POST   | /api/categories           | { "name" }   |
-| GET    | /api/categories           | -            |
-| GET    | /api/categories/{id}      | -            |
-| PUT    | /api/categories/{id}      | { "name" }   |
-| DELETE | /api/categories/{id}      | -            |
+Spring automatically provides objects a class needs instead of the class creating them itself.
 
 ## API Response Format
 
@@ -64,13 +38,78 @@ Every endpoint returns a consistent JSON structure:
 ```json
 {
     "statusCode": 200,
-    "message": "Category retrieved",
+    "message": "Menu retrieved",
     "data": {
         "id": 1,
-        "name": "Fast Food"
+        "name": "Cheese Burger",
+        "description": "Beef patty with cheese",
+        "price": 49.99,
+        "imageUrl": "https://placehold.co/300",
+        "categoryId": 1,
+        "categoryName": "Fast Food"
     },
-    "timestamp": "2026-06-18T08:42:11"
+    "timestamp": "2026-06-23T10:30:00"
 }
 ```
 
 On error, the `data` field is omitted.
+
+## Endpoints
+
+### Category Endpoints
+
+| Method | Path | Description |
+|--------|------|-------------|
+| GET | /api/categories | Get all categories |
+| GET | /api/categories/{id} | Get category by id |
+| POST | /api/categories | Create a category |
+| PUT | /api/categories/{id} | Update a category |
+| DELETE | /api/categories/{id} | Delete a category (409 if it has menus) |
+
+### Menu Endpoints
+
+| Method | Path | Description | Query Params |
+|--------|------|-------------|--------------|
+| POST | /api/menu | Create a menu item | - |
+| GET | /api/menu | List menus | categoryId, search, page, size, sort |
+| GET | /api/menu/{id} | Get menu by id | - |
+| PUT | /api/menu/{id} | Update a menu item | - |
+| DELETE | /api/menu/{id} | Delete a menu item | - |
+
+### Example GET with all query params
+
+### Example paginated response
+
+```json
+{
+    "statusCode": 200,
+    "message": "Menus retrieved",
+    "data": {
+        "items": [...],
+        "totalElements": 28,
+        "totalPages": 3,
+        "number": 0,
+        "size": 10,
+        "first": true,
+        "last": false
+    },
+    "timestamp": "2026-06-23T10:30:00"
+}
+```
+
+## Package Structure
+
+| Package | Purpose |
+|---------|---------|
+| controller | Handles incoming HTTP requests |
+| service | Contains business logic |
+| repository | Manages database operations |
+| entity | Defines database table structures |
+| dto | Data Transfer Objects |
+| config | Application configuration |
+| exception | Custom exceptions and error handling |
+| response | Generic Response wrapper |
+
+## Screenshots
+
+Screenshots are available in the `screenshots` folder organised by day.

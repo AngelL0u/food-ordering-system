@@ -18,21 +18,18 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-    // GET /api/categories - returns all categories
     @GetMapping
     public ResponseEntity<Response<List<CategoryDto>>> getAllCategories() {
         List<CategoryDto> categories = categoryService.getAllCategories();
         return ResponseEntity.ok(Response.success("Categories retrieved", categories));
     }
 
-    // GET /api/categories/{id} - returns one category by id
     @GetMapping("/{id}")
     public ResponseEntity<Response<CategoryDto>> getCategoryById(@PathVariable Long id) {
         CategoryDto dto = categoryService.getCategoryById(id);
         return ResponseEntity.ok(Response.success("Category retrieved", dto));
     }
 
-    // POST /api/categories - creates a new category
     @PostMapping
     public ResponseEntity<Response<CategoryDto>> addCategory(@RequestBody @Valid CategoryDto dto) {
         CategoryDto created = categoryService.addCategory(dto);
@@ -40,16 +37,16 @@ public class CategoryController {
                 .body(Response.success("Category created", created));
     }
 
-    // PUT /api/categories/{id} - updates an existing category
     @PutMapping("/{id}")
-    public ResponseEntity<Response<CategoryDto>> updateCategory(@PathVariable Long id, @RequestBody @Valid CategoryDto dto) {
+    public ResponseEntity<Response<CategoryDto>> updateCategory(
+            @PathVariable Long id, @RequestBody @Valid CategoryDto dto) {
         CategoryDto updated = categoryService.updateCategory(id, dto);
         return ResponseEntity.ok(Response.success("Category updated", updated));
     }
 
-    // DELETE /api/categories/{id} - deletes a category
     @DeleteMapping("/{id}")
     public ResponseEntity<Response<Void>> deleteCategory(@PathVariable Long id) {
         categoryService.deleteCategory(id);
         return ResponseEntity.ok(Response.success("Category deleted", null));
     }
+}

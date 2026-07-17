@@ -6,7 +6,7 @@
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
 		<version>3.5.15</version>
-		<relativePath/> <!-- lookup parent from repository -->
+		<relativePath/>
 	</parent>
 	<groupId>com.jumpstart</groupId>
 	<artifactId>food-ordering-system</artifactId>
@@ -14,18 +14,9 @@
 	<name/>
 	<description/>
 	<url/>
-	<licenses>
-		<license/>
-	</licenses>
-	<developers>
-		<developer/>
-	</developers>
-	<scm>
-		<connection/>
-		<developerConnection/>
-		<tag/>
-		<url/>
-	</scm>
+	<licenses><license/></licenses>
+	<developers><developer/></developers>
+	<scm><connection/><developerConnection/><tag/><url/></scm>
 	<properties>
 		<java.version>21</java.version>
 	</properties>
@@ -43,6 +34,27 @@
 			<artifactId>spring-boot-starter-validation</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-api</artifactId>
+			<version>0.11.5</version>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-impl</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.jsonwebtoken</groupId>
+			<artifactId>jjwt-jackson</artifactId>
+			<version>0.11.5</version>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
 			<groupId>com.mysql</groupId>
 			<artifactId>mysql-connector-j</artifactId>
 			<scope>runtime</scope>
@@ -58,7 +70,6 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
-
 	<build>
 		<plugins>
 			<plugin>
@@ -80,9 +91,7 @@
 					<execution>
 						<id>default-compile</id>
 						<phase>compile</phase>
-						<goals>
-							<goal>compile</goal>
-						</goals>
+						<goals><goal>compile</goal></goals>
 						<configuration>
 							<annotationProcessorPaths>
 								<path>
@@ -95,9 +104,7 @@
 					<execution>
 						<id>default-testCompile</id>
 						<phase>test-compile</phase>
-						<goals>
-							<goal>testCompile</goal>
-						</goals>
+						<goals><goal>testCompile</goal></goals>
 						<configuration>
 							<annotationProcessorPaths>
 								<path>
@@ -111,5 +118,4 @@
 			</plugin>
 		</plugins>
 	</build>
-
 </project>

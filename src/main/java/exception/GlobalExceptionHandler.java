@@ -4,6 +4,8 @@ import com.jumpstart.food_ordering_system.response.Response;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -37,11 +39,25 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
     }
 
-    // 409 - Data integrity (e.g. deleting category that has menus)
+    // 409 - Data integrity
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<Response<Void>> handleDataIntegrity(DataIntegrityViolationException ex) {
         return ResponseEntity.status(HttpStatus.CONFLICT)
                 .body(Response.error(409, "Cannot delete: this record is referenced by other data"));
+    }
+
+    // 403 - Access denied
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Response<Void>> handleAccessDenied(AccessDeniedException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(Response.error(403, "Access denied: you do not have permission to perform this action"));
+    }
+
+    // 401 - Unauthorized
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<Response<Void>> handleAuthentication(AuthenticationException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(Response.error(401, "Unauthorized: please login to access this resource"));
     }
 
     // 500 - Generic fallback
